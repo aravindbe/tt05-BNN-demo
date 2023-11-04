@@ -14,7 +14,7 @@ reg signed [7:0] accumulated_result;
 // XNOR operation
 always @(input_data or weight) begin
   if (ena) begin
-  xnor_result = ~(input_data ^ weight);
+  xnor_result <= ~(input_data ^ weight);
   end
 end
 

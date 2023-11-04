@@ -1,40 +1,26 @@
-module tt_um_BNNNeuron(
-  input clk,
-  input rst_n,
-  input [31:0] input_data,
-  input [31:0] weight,
-  output reg o_neuron
+`default_nettype none
+
+module tt_um_BNNNeuron (
+    input  wire [7:0] ui_in,    // Dedicated inputs - connected to the input current
+    output wire [7:0] uo_out,   // Dedicated outputs - connected to the 7 digit output
+    input  wire [7:0] uio_in,   // IOs: Bidirectional Input path
+    output wire [7:0] uio_out,  // IOs: Bidirectional Output path
+    output wire [7:0] uio_oe,   // IOs: Bidirectional Enable path (active high: 0=input, 1=output)
+    input  wire       ena,      // will go high when the design is enabled
+    input  wire       clk,      // clock
+    input  wire       rst_n     // reset_n - low to reset
 );
 
-// Internal signals
-reg [31:0] xnor_result;
-reg [31:0] accumulated_result;
+    // use bidirectionals as outputs
+    assign uio_oe = 8'b11111111;
+    assign uio_out [6:0] = 7'd0;
 
-// XNOR operation
-always @(input_data or weight) begin
-  xnor_result = ~(input_data ^ weight);
-end
-
-// Accumulator
-always @(posedge clk or posedge rst_n) begin
-  if (rst_n) begin
-    accumulated_result <= 32'b0;
-  end else begin
-    accumulated_result <= accumulated_result + xnor_result;
-  end
-end
-
-// Sign activation function
-always @(posedge clk or posedge rst_n) begin
-  if (rst_n) begin
-    o_neuron <= 1'b0;
-  end else begin
-    if (accumulated_result >= 0) begin
-      o_neuron <= 1'b1;
-    end else begin
-      o_neuron <= 1'b0;
-    end
-  end
-end
+BNNNeuron neuron_inst (
+  .clk(clk),            
+  .rst_n(rst_n),        
+  .input_data(ui_in), // Connect the input_data signal
+  .weight(uio_in),        // Connect the weight signal
+  .o_neuron(uio_out[7])     // Connect the output signal o_neuron
+);
 
 endmodule

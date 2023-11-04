@@ -11,7 +11,9 @@ module tt_um_BNNNeuron (
     input  wire       rst_n     // reset_n - low to reset
 );
 
-
+    // use bidirectionals as outputs
+    assign uio_oe = 8'b11110000;
+    assign uio_out [7:0] = 8'd0;
     assign uo_out [6:0] = 7'd0;
 
 BNNNeuron neuron_inst (

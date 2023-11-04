@@ -1,4 +1,4 @@
-module bnnneuron(
+module BNNNeuron(
   input clk,
   input rst_n,
   input [7:0] input_data,

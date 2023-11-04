@@ -1,6 +1,6 @@
 module tt_um_BNNNeuron(
-  input clock,
-  input reset,
+  input clk,
+  input rst_n,
   input [31:0] input_data,
   input [31:0] weight,
   output reg o_neuron
@@ -16,8 +16,8 @@ always @(input_data or weight) begin
 end
 
 // Accumulator
-always @(posedge clock or posedge reset) begin
-  if (reset) begin
+always @(posedge clk or posedge rst_n) begin
+  if (rst_n) begin
     accumulated_result <= 32'b0;
   end else begin
     accumulated_result <= accumulated_result + xnor_result;
@@ -25,8 +25,8 @@ always @(posedge clock or posedge reset) begin
 end
 
 // Sign activation function
-always @(posedge clock or posedge reset) begin
-  if (reset) begin
+always @(posedge clk or posedge rst_n) begin
+  if (rst_n) begin
     o_neuron <= 1'b0;
   end else begin
     if (accumulated_result >= 0) begin

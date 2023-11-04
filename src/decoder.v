@@ -1,4 +1,3 @@
-
 /*
       -- 1 --
      |       |
@@ -41,6 +40,5 @@ module seg7 (
     end
 
 endmodule
-
-module 
+ 
 

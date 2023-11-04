@@ -19,13 +19,9 @@ async def test_bnnn(dut):
     dut.ui_in.value = 1
     await ClockCycles(dut.clk, 10)
     dut.rst_n.value = 1
-    dut.ui_in.value = 0
-    await ClockCycles(dut.clk, 10)
+
     dut.ui_in.value = CURRENT
+    dut.ena.value = 1 #enable design
     for i in range(100):
-        if (i%2 == 0):
-            dut.ui_in.value = 125
-        else:
-            dut.ui_in.value = CURRENT
-        await ClockCycles(dut.clk, 10)
-    dut._log.info("test done")
+        await ClockCycles(dut.clk)
+    dut._log.info("Finished the test, Done !!! ")

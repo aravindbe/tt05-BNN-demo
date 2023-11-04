@@ -1,6 +1,7 @@
 module BNNNeuron(
   input clk,
   input rst_n,
+  input ena,
   input [7:0] input_data,
   input [7:0] weight,
   output reg o_neuron
@@ -8,11 +9,13 @@ module BNNNeuron(
 
 // Internal signals
 reg [7:0] xnor_result;
-reg [7:0] accumulated_result;
+reg signed [7:0] accumulated_result;
 
 // XNOR operation
 always @(input_data or weight) begin
+  if (ena) begin
   xnor_result = ~(input_data ^ weight);
+  end
 end
 
 // Accumulator
@@ -38,3 +41,4 @@ always @(posedge clk or posedge rst_n) begin
 end
 
 endmodule
+

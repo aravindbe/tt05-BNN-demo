@@ -13,7 +13,7 @@ module tt_um_BNNNeuron (
 
     // use bidirectionals as outputs
     assign uio_oe = 8'b11111111;
-    assign uio_out [6:0] = 7'd0;
+    assign uo_out [6:0] = 7'd0;
 
 BNNNeuron neuron_inst (
   .clk(clk),            

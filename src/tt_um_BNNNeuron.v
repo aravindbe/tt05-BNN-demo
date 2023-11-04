@@ -20,7 +20,7 @@ BNNNeuron neuron_inst (
   .rst_n(rst_n),        
   .input_data(ui_in), // Connect the input_data signal
   .weight(uio_in),        // Connect the weight signal
-  .o_neuron(uio_out[7])     // Connect the output signal o_neuron
+  .o_neuron(uo_out[7])     // Connect the output signal o_neuron
 );
 
 endmodule
